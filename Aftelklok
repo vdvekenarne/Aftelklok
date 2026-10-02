@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aftellen naar de vrijheid</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #003366, #005b96);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(5px);
+            border: 2px solid #66b3ff;
+            border-radius: 15px;
+            min-width: 180px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        .number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .label {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: #cfe8ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #cfe8ff;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .number {
+                font-size: 2.8rem;
+            }
+
+            .card {
+                min-width: 140px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🚔 Countdown naar 30 juni 2027</h1>
+
+    <div class="countdown">
+
+        <div class="card">
+            <div class="number" id="days">0</div>
+            <div class="label">Dagen</div>
+        </div>
+
+        <div class="card">
+            <div class="number" id="hours">0</div>
+            <div class="label">Uren</div>
+        </div>
+
+        <div class="card">
+            <div class="number" id="minutes">0</div>
+            <div class="label">Minuten</div>
+        </div>
+
+        <div class="card">
+            <div class="number" id="seconds">0</div>
+            <div class="label">Seconden</div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Politieproject • Doeldatum: 30/06/2027
+    </div>
+
+</div>
+
+<script>
+
+const targetDate = new Date("2027-06-30T00:00:00");
+
+function updateCountdown() {
+
+    const now = new Date();
+    const difference = targetDate - now;
+
+    if (difference <= 0) {
+        document.querySelector(".countdown").innerHTML =
+            "<h2>🎉 Doeldatum bereikt!</h2>";
+        return;
+    }
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / (1000 * 60)) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
+    document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
+    document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+</script>
+
+</body>
+</html>
